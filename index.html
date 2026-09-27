@@ -3,31 +3,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Editor Gun</title><style>
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background:
-        radial-gradient(circle at top, #242424 0%, #0b0b0b 55%, #050505 100%);
+    background: #070707;
     color: white;
-    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+/* HEADER */
+
 header {
-    padding: 22px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 70px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #292929;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(10px);
+    justify-content: space-between;
+    padding: 0 7%;
+    background: rgba(7,7,7,.85);
+    border-bottom: 1px solid #242424;
+    backdrop-filter: blur(15px);
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 900;
     letter-spacing: 1px;
 }
@@ -36,156 +41,406 @@ header {
     color: #ff3030;
 }
 
-.menu {
-    color: #aaa;
-    font-size: 14px;
+.status {
+    color: #777;
+    font-size: 12px;
 }
 
+/* HERO */
+
 .hero {
-    max-width: 900px;
-    margin: auto;
-    padding: 75px 20px 45px;
+    min-height: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 70px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: #ff2020;
+    opacity: .08;
+    filter: blur(120px);
+    border-radius: 50%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
 }
 
 .badge {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border: 1px solid #333;
     border-radius: 50px;
     color: #aaa;
-    font-size: 13px;
-    margin-bottom: 20px;
     background: #111;
+    font-size: 12px;
+    margin-bottom: 25px;
 }
 
 h1 {
-    font-size: clamp(45px, 10vw, 82px);
+    font-size: clamp(55px, 13vw, 110px);
+    line-height: .86;
     font-weight: 1000;
-    line-height: 0.95;
+    letter-spacing: -5px;
 }
 
 h1 span {
     color: #ff3030;
 }
 
-.subtitle {
-    color: #aaa;
-    max-width: 600px;
-    margin: 25px auto;
+.description {
+    max-width: 620px;
+    margin: 30px auto;
+    color: #999;
     font-size: 17px;
     line-height: 1.6;
 }
 
+/* DOWNLOAD */
+
 .download {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 17px 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 230px;
+    padding: 18px 28px;
     background: #ff3030;
     color: white;
     text-decoration: none;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 18px;
-    box-shadow: 0 10px 35px rgba(255,48,48,0.25);
-    transition: 0.2s;
+    border-radius: 13px;
+    font-size: 17px;
+    font-weight: 900;
+    box-shadow: 0 12px 40px rgba(255,48,48,.25);
+    transition: .2s;
 }
 
 .download:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     background: #ff4545;
 }
 
-.info {
+.download:active {
+    transform: scale(.97);
+}
+
+.note {
+    margin-top: 15px;
+    color: #555;
+    font-size: 12px;
+}
+
+/* PREVIEW */
+
+.preview {
     max-width: 900px;
-    margin: 25px auto 80px;
-    padding: 20px;
+    margin: -20px auto 80px;
+    padding: 0 20px;
+}
+
+.preview-box {
+    min-height: 300px;
+    border: 1px solid #292929;
+    border-radius: 20px;
+    background:
+        linear-gradient(145deg, #151515, #090909);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.preview-box img {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+}
+
+.preview-placeholder {
+    color: #444;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.preview-placeholder strong {
+    display: block;
+    color: #777;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+/* FEATURES */
+
+.section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px 20px 90px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 40px;
+}
+
+.cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
 }
 
 .card {
-    background: rgba(20,20,20,0.9);
-    border: 1px solid #292929;
-    border-radius: 15px;
-    padding: 25px;
+    background: #111;
+    border: 1px solid #242424;
+    border-radius: 17px;
+    padding: 28px;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #444;
+}
+
+.card .number {
+    color: #ff3030;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 18px;
 }
 
 .card h3 {
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
 .card p {
-    color: #999;
-    font-size: 14px;
+    color: #888;
     line-height: 1.5;
+    font-size: 14px;
 }
 
-.version {
-    color: #ff4040;
+/* INFO */
+
+.info {
+    max-width: 700px;
+    margin: auto;
+    padding: 0 20px 90px;
+}
+
+.info-box {
+    border: 1px solid #242424;
+    border-radius: 17px;
+    overflow: hidden;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: #101010;
+    border-bottom: 1px solid #202020;
+}
+
+.info-row:last-child {
+    border-bottom: 0;
+}
+
+.info-label {
+    color: #777;
+}
+
+.info-value {
     font-weight: bold;
 }
 
-footer {
-    border-top: 1px solid #222;
-    padding: 25px;
-    text-align: center;
-    color: #666;
-    font-size: 13px;
+.red {
+    color: #ff3030;
 }
 
-@media(max-width:700px) {
-    .info {
-        grid-template-columns: 1fr;
-    }
+/* FOOTER */
+
+footer {
+    border-top: 1px solid #202020;
+    text-align: center;
+    padding: 30px 20px;
+    color: #555;
+    font-size: 12px;
+}
+
+@media(max-width: 700px) {
 
     header {
-        padding: 18px;
+        padding: 0 20px;
+    }
+
+    .status {
+        display: none;
     }
 
     .hero {
-        padding-top: 55px;
+        min-height: 650px;
+    }
+
+    h1 {
+        letter-spacing: -3px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .preview {
+        margin-top: -10px;
     }
 }
-</style></head><body><header>
-    <div class="logo">EDITOR <span>GUN</span></div>
-    <div class="menu">DOWNLOAD</div>
-</header><section class="hero"><div class="badge">EDITOR GUN • ANDROID</div>
-
-<h1>
-    CREATE.<br>
-    <span>EDIT.</span><br>
-    PLAY.
-</h1>
-
-<p class="subtitle">
-    Editor Gun é um projeto para criar e editar armas
-    fictícias dentro de um ambiente de jogo.
-    Monte seus projetos, personalize e teste suas criações.
-</p>
-
-<!-- TROQUE EditorGun.apk PELO NOME DO SEU APK -->
-<a class="download" href="EditorGun.apk" download>
-    BAIXAR EDITOR GUN
-</a>
-
-</section><section class="info"><div class="card">
-    <h3>Versão</h3>
-    <p class="version">v0.1.0</p>
+</style></head><body><header><div class="logo">
+    EDITOR <span>GUN</span>
 </div>
 
-<div class="card">
-    <h3>Plataforma</h3>
-    <p>Android</p>
+<div class="status">
+    OFFICIAL DOWNLOAD
 </div>
 
-<div class="card">
-    <h3>Projeto</h3>
-    <p>Editor Gun</p>
+</header><section class="hero"><div class="hero-content">
+
+    <div class="badge">
+        EDITOR GUN • ANDROID
+    </div>
+
+    <h1>
+        EDITOR<br>
+        <span>GUN</span>
+    </h1>
+
+    <p class="description">
+        Crie, personalize e teste suas próprias armas
+        fictícias em um projeto feito para quem gosta
+        de construir e experimentar.
+    </p>
+
+    <!--
+    IMPORTANTE:
+    Coloque o APK na mesma pasta do index.html
+    no GitHub.
+    -->
+
+    <a
+        class="download"
+        href="EditorGun.apk"
+        download
+    >
+        BAIXAR AGORA
+    </a>
+
+    <div class="note">
+        Android • Download gratuito
+    </div>
+
 </div>
 
-</section><footer>
-    © 2026 Editor Gun — Projeto independente
+</section><section class="preview"><div class="preview-box">
+
+    <!--
+    PARA COLOCAR UMA IMAGEM:
+    1. Envie sua imagem para o GitHub.
+    2. Coloque o nome dela abaixo.
+
+    Exemplo:
+    <img src="editor-gun.png">
+    -->
+
+    <div class="preview-placeholder">
+        <strong>EDITOR GUN</strong>
+        Imagem do jogo
+    </div>
+
+</div>
+
+</section><section class="section"><h2 class="section-title">
+    O que é o Editor Gun?
+</h2>
+
+<div class="cards">
+
+    <div class="card">
+        <div class="number">01</div>
+
+        <h3>Crie</h3>
+
+        <p>
+            Monte seus próprios projetos e
+            personalize diferentes partes da sua
+            criação.
+        </p>
+    </div>
+
+
+    <div class="card">
+        <div class="number">02</div>
+
+        <h3>Personalize</h3>
+
+        <p>
+            Modifique aparência, componentes e
+            configurações dentro do editor.
+        </p>
+    </div>
+
+
+    <div class="card">
+        <div class="number">03</div>
+
+        <h3>Teste</h3>
+
+        <p>
+            Experimente suas criações diretamente
+            dentro do jogo.
+        </p>
+    </div>
+
+</div>
+
+</section><section class="info"><div class="info-box">
+
+    <div class="info-row">
+        <span class="info-label">Nome</span>
+        <span class="info-value">Editor Gun</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Versão</span>
+        <span class="info-value red">v0.1.0</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Plataforma</span>
+        <span class="info-value">Android</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Tipo</span>
+        <span class="info-value">Game / Editor</span>
+    </div>
+
+</div>
+
+</section><footer>© 2026 Editor Gun
+<br><br>
+Projeto independente
+
 </footer></body>
 </html>
